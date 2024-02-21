@@ -6,3 +6,12 @@ body {
     min-height: 100vh;
     margin: 0;
 }
+
+img {
+    width: 220px;
+}
+
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
