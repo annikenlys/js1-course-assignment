@@ -177,6 +177,114 @@ main {
     background-color: #BAC5CF;
 }
 
+#confirmation-button {
+    background-color: #3FA535;
+    font-size: 1.25rem;
+    color: #FFF;
+    padding: 0.938rem 1.875rem;
+    border: none;
+    border-radius: 0.313rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 2.25rem;
+}
+
+#confirmation-button:hover {
+    background-color: #1B203D;
+}
+
+.confirmation-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3.125rem;
+}
+
+#confirmation-summary {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.continue-shopping-btn {
+    display: inline-block;
+    margin-top: 1.25rem;
+    padding: 0.625rem 1.25rem;
+    background-color: #1B203D;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 0.313rem;
+    transition: background-color 0.3s ease;
+}
+
+.continue-shopping-btn:hover {
+    background-color: #BAC5CF;
+}
+
+.confirmation-container h1 {
+    color: #1B203D;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-container h2 {
+    color: #1B203D;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-container h3 {
+    color: #1B203D;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-container p {
+    color: #1B203D;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.confirmation-container ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.confirmation-container li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.confirmation-container li img {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 20px; /* Adjust spacing as needed */
+}
+
+.confirmation-container li p {
+    font-size: 1.25rem;
+}
+
+.confirmation-container .continue-shopping-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.938rem 1.875rem;
+    background-color: #1B203D;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 0.313rem;
+    transition: background-color 0.3s ease;
+}
+
+.confirmation-container .continue-shopping-btn:hover {
+    background-color: #BAC5CF;
+}
+
 /* TABLET */
 @media (min-width: 768px) {
     #product-list {
