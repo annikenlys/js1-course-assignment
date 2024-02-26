@@ -1,4 +1,3 @@
-// Global variables
 let productData = [];
 const productListElement = document.getElementById("product-list");
 const genreDropdownElement = document.getElementById("filter-list");
@@ -10,10 +9,7 @@ genreDropdownElement.addEventListener("change", () => {
 
 // Fetch data from the API
 async function fetchData() {
-  // Show loading indicator
-  const loadingIndicator = document.createElement("div");
-  loadingIndicator.textContent = "Loading products...";
-  productListElement.appendChild(loadingIndicator);
+  const loadingIndicator = createLoadingIndicator();
 
   try {
     const response = await fetch("https://api.noroff.dev/api/v1/gamehub");
@@ -31,7 +27,24 @@ async function fetchData() {
     alert("An error occurred while fetching data. Please try again later");
   } finally {
     // Remove loading indicator
-    productListElement.removeChild(loadingIndicator);
+    removeLoadingIndicator(loadingIndicator);
+  }
+}
+
+fetchData();
+
+// Function to create loading indicator
+function createLoadingIndicator() {
+  const loadingIndicator = document.createElement("div");
+  loadingIndicator.textContent = "Loading products...";
+  productListElement.appendChild(loadingIndicator);
+  return loadingIndicator;
+}
+
+//Function to remove loading indicator
+function removeLoadingIndicator(loadingIndicator) {
+  if (loadingIndicator && loadingIndicator.parentNode) {
+    loadingIndicator.parentNode.removeChild(loadingIndicator);
   }
 }
 
@@ -60,7 +73,6 @@ function displayProducts(products) {
       displayProduct(product);
     } catch (error) {
       console.error("Error displaying product", error);
-
       const errorCard = document.createElement("div");
       errorCard.classList.add("error-card");
       errorCard.textContent = "An error occurred while loading this product.";
@@ -69,52 +81,46 @@ function displayProducts(products) {
   });
 }
 
-// Display individual product details
+// Display single product details
 function displayProduct(product) {
-  try {
-    const productCard = document.createElement("div");
-    productCard.classList.add("product-card");
+  const productCard = document.createElement("div");
+  productCard.classList.add("product-card");
 
-    // Add click event to navigate to product details
-    productCard.addEventListener("click", () => {
-      navigateToProductDetails(product);
-    });
+  // Add click event to navigate to product details
+  productCard.addEventListener("click", () => {
+    sessionStorage.setItem("selectedProduct", JSON.stringify(product));
+    window.location.href = "pages/product.html";
+  });
 
-    const priceDisplay = product.onSale
-      ? `<p class="sale-price">${product.discountedPrice}</p>`
-      : `<p>${product.price}</p>`;
-
-    productCard.innerHTML = `
+  const priceDisplay = product.onSale
+    ? `<p class="sale-price">${product.discountedPrice}</p>`
+    : `<p>${product.price}</p>`;
+  productCard.innerHTML = `
     <img src="${product.image}" alt="${product.title}" class="product-image">
     <h3>${product.title}</h3>
     ${priceDisplay}
   `;
 
-    productListElement.appendChild(productCard);
-  } catch (error) {
-    throw new error(`Error creating product card: ${error.message}`);
-  }
-}
-
-// Function to navigate to product details page
-function navigateToProductDetails(product) {
-  sessionStorage.setItem("selectedProduct", JSON.stringify(product));
-  window.location.href = "pages/products/product.html";
+  productListElement.appendChild(productCard);
 }
 
 // Filter products by genre
 function filterByGenre(genreToFilterBy) {
-  if (genreToFilterBy === "default") {
-    // If default selected, display all products
-    displayProducts(productData);
-  } else {
-    // Filter products by genre
-    const filteredProducts = productData.filter(
-      (product) => product.genre === genreToFilterBy,
+  try {
+    if (genreToFilterBy === "default") {
+      // If default selected, display all products
+      displayProducts(productData);
+    } else {
+      // Filter products by genre
+      const filteredProducts = productData.filter(
+        (product) => product.genre === genreToFilterBy,
+      );
+      displayProducts(filteredProducts);
+    }
+  } catch (error) {
+    console.error("Error filtering products:", error);
+    alert(
+      "An error occurred while filtering products. Please try again later.",
     );
-    displayProducts(filteredProducts);
   }
 }
-
-// Call the fetchData function to start the process
-fetchData();
