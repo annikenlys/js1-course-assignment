@@ -24,7 +24,6 @@ async function fetchData() {
     console.error("Error fetching data:", error);
     alert("An error occurred while fetching data. Please try again later");
   } finally {
-    // Remove loading indicator
     removeLoadingIndicator(loadingIndicator);
   }
 }
