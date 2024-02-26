@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://kit.fontawesome.com/301ec7e323.js" crossorigin="anonymous"></script>
-    <script src="app.js" defer type="module"></script>
+    <script src="/js/checkout.js" defer type="module"></script>
 </head>
 <body>
     <header>
@@ -17,20 +17,16 @@
                 <img src="assets/GameHub_Logo.png" alt="logo" class="logo">
             </a>
         </button>
-        <button class="cart-btn">
-            <a href="checkout.html" class="cart-link">
-                <i class="fa-solid fa-bag-shopping"></i>
-            </a>
-        </button>
     </header>
 
-    <div class="filter-container">
-        <label for="filter-list">Filter by genre:</label>
-        <select id="filter-list">
-            <option value="default">Show all</option>
-        </select>
-    </div>
+    <main>
+        <h1>Checkout</h1>
+        <h2>Your cart</h2>
 
-    <div id="product-list"></div>
+        <div id="cart-container">
+            <div id="product-card-content"></div>
+            <div id="checkout-details"></div>
+        </div>
+    </main>
 </body>
 </html>

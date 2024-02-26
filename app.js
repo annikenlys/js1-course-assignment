@@ -89,7 +89,7 @@ function displayProduct(product) {
   // Add click event to navigate to product details
   productCard.addEventListener("click", () => {
     sessionStorage.setItem("selectedProduct", JSON.stringify(product));
-    window.location.href = "pages/product.html";
+    window.location.href = "product.html";
   });
 
   const priceDisplay = product.onSale
