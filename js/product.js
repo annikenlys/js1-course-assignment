@@ -1,6 +1,5 @@
 const productCardContainer = document.getElementById("product-card-container");
 
-// Get selected product from session storage
 const selectedProduct = JSON.parse(sessionStorage.getItem("selectedProduct"));
 
 displayProductDetails(selectedProduct);
@@ -24,7 +23,6 @@ function displayProductDetails(product) {
 
   productCardContainer.appendChild(singleProductCard);
 
-  // Add event listener to add to cart button
   const addToCartBtn = singleProductCard.querySelector("#add-to-cart-btn");
   addToCartBtn.addEventListener("click", () => addToCart(product));
 }
