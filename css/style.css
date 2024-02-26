@@ -177,6 +177,7 @@ main {
     background-color: #BAC5CF;
 }
 
+/* STYLES CONFIRMATION PAGE */
 #confirmation-button {
     background-color: #3FA535;
     font-size: 1.25rem;
@@ -261,9 +262,9 @@ main {
 }
 
 .confirmation-container li img {
-    width: 100px; /* Adjust size as needed */
+    width: 100px;
     height: auto;
-    margin-right: 20px; /* Adjust spacing as needed */
+    margin-right: 20px;
 }
 
 .confirmation-container li p {
@@ -279,6 +280,7 @@ main {
     text-decoration: none;
     border-radius: 0.313rem;
     transition: background-color 0.3s ease;
+    border: none;
 }
 
 .confirmation-container .continue-shopping-btn:hover {
