@@ -1,5 +1,6 @@
 const productCardContent = document.getElementById("product-card-content");
 const checkoutDetails = document.getElementById("checkout-details");
+const confirmationButton = document.getElementById("confirmation-button");
 let groupedItems = {};
 let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -119,3 +120,7 @@ function displayCartSummary() {
 function clearCheckoutSummary() {
   checkoutDetails.innerHTML = "";
 }
+
+confirmationButton.addEventListener("click", () => {
+  window.location.href = "confirmation.html";
+});

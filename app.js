@@ -2,12 +2,10 @@ let productData = [];
 const productListElement = document.getElementById("product-list");
 const genreDropdownElement = document.getElementById("filter-list");
 
-// Event listener for genre filter selection
 genreDropdownElement.addEventListener("change", () => {
   filterByGenre(genreDropdownElement.value);
 });
 
-// Fetch data from the API
 async function fetchData() {
   const loadingIndicator = createLoadingIndicator();
 
@@ -33,7 +31,6 @@ async function fetchData() {
 
 fetchData();
 
-// Function to create loading indicator
 function createLoadingIndicator() {
   const loadingIndicator = document.createElement("div");
   loadingIndicator.textContent = "Loading products...";
@@ -41,19 +38,15 @@ function createLoadingIndicator() {
   return loadingIndicator;
 }
 
-//Function to remove loading indicator
 function removeLoadingIndicator(loadingIndicator) {
   if (loadingIndicator && loadingIndicator.parentNode) {
     loadingIndicator.parentNode.removeChild(loadingIndicator);
   }
 }
 
-// Load genres into dropdown list
 function loadGenreIntoDropDown() {
-  // Extract genres from product data
   const genres = [...new Set(productData.map((product) => product.genre))];
 
-  // Fill the dropdown with genre options
   genres.forEach((genre) => {
     const genreOption = document.createElement("option");
     genreOption.value = genre;
@@ -62,12 +55,9 @@ function loadGenreIntoDropDown() {
   });
 }
 
-// Display products on the page
 function displayProducts(products) {
-  // Clear product list
   productListElement.innerHTML = "";
 
-  // Display each product with error handling
   products.forEach((product) => {
     try {
       displayProduct(product);
@@ -81,12 +71,10 @@ function displayProducts(products) {
   });
 }
 
-// Display single product details
 function displayProduct(product) {
   const productCard = document.createElement("div");
   productCard.classList.add("product-card");
 
-  // Add click event to navigate to product details
   productCard.addEventListener("click", () => {
     sessionStorage.setItem("selectedProduct", JSON.stringify(product));
     window.location.href = "product.html";
@@ -104,14 +92,11 @@ function displayProduct(product) {
   productListElement.appendChild(productCard);
 }
 
-// Filter products by genre
 function filterByGenre(genreToFilterBy) {
   try {
     if (genreToFilterBy === "default") {
-      // If default selected, display all products
       displayProducts(productData);
     } else {
-      // Filter products by genre
       const filteredProducts = productData.filter(
         (product) => product.genre === genreToFilterBy,
       );
