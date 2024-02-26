@@ -18,9 +18,20 @@ function displayProductDetails(product) {
       <h1>${product.title}</h1>
       <p>${product.description}</p>
       ${priceDisplay}
-      <button>Add to Cart</button>
+      <button id="add-to-cart-btn">Add to Cart</button>
     </div>
   `;
 
   productCardContainer.appendChild(singleProductCard);
+
+  // Add event listener to add to cart button
+  const addToCartBtn = singleProductCard.querySelector("#add-to-cart-btn");
+  addToCartBtn.addEventListener("click", () => addToCart(product));
+}
+
+function addToCart(product) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart.push(product);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Product added to cart!");
 }
