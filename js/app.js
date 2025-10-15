@@ -1,4 +1,5 @@
 let productData = [];
+const loadingContainerElement = document.getElementById("loading-container");
 const productListElement = document.getElementById("product-list");
 const genreDropdownElement = document.getElementById("filter-list");
 
@@ -7,7 +8,7 @@ genreDropdownElement.addEventListener("change", () => {
 });
 
 async function fetchData() {
-  const loadingIndicator = createLoadingIndicator();
+  const loadingIndicator = showLoadingIndicator();
 
   try {
     const response = await fetch("https://api.noroff.dev/api/v1/gamehub");
@@ -28,19 +29,18 @@ async function fetchData() {
   }
 }
 
-fetchData();
+fetchData().catch((error) =>
+  console.error("Unhandled fetchData error:", error),
+);
 
-function createLoadingIndicator() {
-  const loadingIndicator = document.createElement("div");
-  loadingIndicator.textContent = "Loading products...";
-  productListElement.appendChild(loadingIndicator);
-  return loadingIndicator;
+function showLoadingIndicator() {
+  loadingContainerElement.style.display = "flex";
+  return loadingContainerElement;
 }
 
-function removeLoadingIndicator(loadingIndicator) {
-  if (loadingIndicator && loadingIndicator.parentNode) {
-    loadingIndicator.parentNode.removeChild(loadingIndicator);
-  }
+function removeLoadingIndicator(indicator) {
+  indicator?.remove();
+  loadingContainerElement.style.display = "none";
 }
 
 function loadGenreIntoDropDown() {
