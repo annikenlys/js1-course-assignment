@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const allCartItems = [...cartItemsFromCheckout, ...cartItemsFromProduct];
 
-    console.log("All Cart Items:", allCartItems);
-
     const totalItems = allCartItems.reduce(
       (total, item) => total + (item.quantity || 0),
       0,
@@ -21,9 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
       (total, item) => total + (item.price || 0) * (item.quantity || 0),
       0,
     );
-
-    console.log("Total Items:", totalItems);
-    console.log("Total Price:", totalPrice);
 
     confirmationContainer.innerHTML = `
       <h1>Order Confirmation</h1>
