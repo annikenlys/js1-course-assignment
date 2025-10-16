@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const continueShoppingBtn = document.createElement("button");
     continueShoppingBtn.addEventListener("click", () => {
+      localStorage.removeItem("cart");
       window.location.href = "index.html";
     });
     continueShoppingBtn.innerText = "Continue shopping";
