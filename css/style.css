@@ -106,10 +106,39 @@ i:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius:12px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 8px 24px rgba(0,0,0,.15);
+    margin:1rem;
+    gap:.5rem;
+    padding:1rem 1.25rem;
+}
+
+.filter-container label {
+    color:#e7f3ff;
+    font-weight:600;
+}
+
+.filter-container select {
+    padding:.65rem 2.5rem .65rem .8rem;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.25);
+    background: linear-gradient(135deg, #083e7a 0%, #0b5fa5 35%, #0a8a3a 70%, #107c10 100%) fixed;
+    color:#fff;
+    font-weight:600;
+    width:clamp(20px,90vw, 200px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
 }
 
 .filter-container select, .product-card {
     cursor: pointer;
+}
+
+#filter-list {
+    color-scheme: dark;
+    color:#fff;
+    background:#0b5fa5;
 }
 
 #product-list {
@@ -352,12 +381,17 @@ main {
 /* TABLET */
 @media (min-width: 768px) {
     #product-list {
-        justify-content: flex-start;
         margin: 4rem 1rem;
     }
 
     .product-card {
         width: 40%;
+    }
+
+    .filter-container {
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem 2rem;
     }
 }
 
