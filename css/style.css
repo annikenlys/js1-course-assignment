@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background: linear-gradient(135deg, #083e7a 0%, #0b5fa5 35%, #0a8a3a 70%, #107c10 100%) fixed;
 }
 
 header {
@@ -79,6 +80,26 @@ i:hover {
 
 @keyframes spin {
     to{transform:rotate(360deg)}
+}
+
+.cart-btn {
+    position: relative;
+}
+
+.cart-count{
+    position:absolute;
+    top:0;
+    right:0;
+    transform: translate(40%,-40%);
+    min-width:18px;
+    height:18px;
+    border-radius:999px;
+    display: none;
+    align-items:center;
+    justify-content:center;
+    font:700 12px/1 system-ui;
+    color:#1B203D;
+    background:#fff;
 }
 
 .filter-container {
