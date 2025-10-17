@@ -9,7 +9,8 @@ displayCartItems(cartItems);
 function displayCartItems(items) {
   productCardContent.innerHTML = "";
   if (items.length === 0) {
-    productCardContent.innerHTML = `<p>Your cart is empty.</p>`;
+    confirmationButton.style.display = "none";
+    productCardContent.innerHTML = `<p class="sale-price">Your cart is empty.</p>`;
     clearCheckoutSummary();
     return;
   }
@@ -34,13 +35,23 @@ function groupItemsById(items) {
 }
 
 function createProductCard(item) {
+  const unitPrice = Number(item.onSale ? item.discountedPrice : item.price);
+  const priceHtml = item.onSale
+    ? `<p>Price:
+        <span class="sale-price">$${unitPrice.toFixed(2)}</span>
+        <span class="old-price" style="text-decoration:line-through;opacity:.7;">
+          $${Number(item.price).toFixed(2)}
+        </span>
+      </p>`
+    : `<p>Price: <span class="sale-price">$${unitPrice.toFixed(2)}</span></p>`;
+
   const productCard = document.createElement("div");
   productCard.classList.add("cart-product-card");
   productCard.innerHTML = `
     <img src="${item.image}" alt="${item.title}" class="product-image">
     <div class="product-info">
       <h3>${item.title}</h3>
-      <p>Price: ${item.price}</p>
+      ${priceHtml}
       <p>Quantity: <span class="quantity">${item.quantity}</span></p>
       ${
         item.quantity > 1
@@ -96,23 +107,28 @@ function updateCart() {
 }
 
 function displayCartSummary() {
-  const totalItems = Object.values(groupedItems).reduce(
-    (groupedItems, curr) => groupedItems + curr.quantity,
-    0,
+  const items = Object.values(groupedItems);
+  const totalItems = items.reduce((n, it) => n + it.quantity, 0);
+
+  const totals = items.reduce(
+    (acc, it) => {
+      const orig = Number(it.price) || 0;
+      const unit = Number(it.onSale ? it.discountedPrice : it.price) || 0;
+      acc.original += orig * it.quantity;
+      acc.actual += unit * it.quantity;
+      return acc;
+    },
+    { original: 0, actual: 0 },
   );
-  const totalPrice = Object.values(groupedItems).reduce(
-    (groupedItems, curr) =>
-      groupedItems + parseFloat(curr.price) * curr.quantity,
-    0,
-  );
+
+  const saved = Math.max(0, totals.original - totals.actual);
   checkoutDetails.innerHTML = `
     <h3>Summary</h3>
     <p>Total items: ${totalItems}</p>
-    <p>Total price: $${totalPrice.toFixed(2)}</p>
+    <p>Total price: $${totals.actual.toFixed(2)}</p>
+    ${saved > 0 ? `<p class="you-saved">You saved $${saved.toFixed(2)} 🎉</p>` : ""}
     <ul>
-      ${Object.values(groupedItems)
-        .map((item) => `<li>${item.title}: ${item.quantity}</li>`)
-        .join("")}
+    ${items.map((it) => `<li>${it.title}: ${it.quantity}</li>`).join("")}
     </ul>
   `;
 }
