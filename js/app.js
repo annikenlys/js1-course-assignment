@@ -79,14 +79,29 @@ function displayProduct(product) {
     window.location.href = "product.html";
   });
 
+  const discount = product.onSale
+    ? Math.round(
+        ((product.price - product.discountedPrice) / product.price) * 100,
+      )
+    : 0;
+
+  const saleBadge = product.onSale
+    ? `<span class="sale-badge">-${discount}%</span>`
+    : "";
+
   const priceDisplay = product.onSale
-    ? `<p class="sale-price">${product.discountedPrice}</p>`
-    : `<p>${product.price}</p>`;
+    ? `<p class="sale-price">$${product.discountedPrice}
+        <em class="old-price"><s>$${product.price}</s></em></p>`
+    : `<p class="price">$${product.price}</p>`;
+
   productCard.innerHTML = `
-    <img src="${product.image}" alt="${product.title}" class="product-image">
-    <h3>${product.title}</h3>
-    ${priceDisplay}
-  `;
+      <div class="image-wrapper">
+        <img src="${product.image}" alt="${product.title}" class="product-image">
+          ${saleBadge}
+      </div>
+  <h3 class="title">${product.title}</h3>
+ ${priceDisplay}
+`;
 
   productListElement.appendChild(productCard);
 }
