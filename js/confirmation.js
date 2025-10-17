@@ -4,48 +4,58 @@ document.addEventListener("DOMContentLoaded", function () {
   );
 
   function displayConfirmationSummary() {
-    const cartItemsFromCheckout =
-      JSON.parse(localStorage.getItem("cart")) || [];
-    const cartItemsFromProduct =
-      JSON.parse(sessionStorage.getItem("productCart")) || [];
+    const summary = JSON.parse(localStorage.getItem("orderSummary") || "null");
+    if (!summary) {
+      confirmationContainer.innerHTML = `<p>Your order summary is missing.</p>`;
+      return;
+    }
 
-    const allCartItems = [...cartItemsFromCheckout, ...cartItemsFromProduct];
-
-    const totalItems = allCartItems.reduce(
-      (total, item) => total + (item.quantity || 0),
-      0,
-    );
-    const totalPrice = allCartItems.reduce(
-      (total, item) => total + (item.price || 0) * (item.quantity || 0),
-      0,
-    );
+    const { items, totals } = summary;
 
     confirmationContainer.innerHTML = `
       <h1>Order Confirmation</h1>
       <h2>Thank you for shopping with us!</h2>
-      <h3>Order summary:</h3>
-      <p>Total items: ${totalItems}</p>
-      <p>Total price: $${totalPrice.toFixed(2)}</p>
-      <ul>
-        ${allCartItems
-          .map(
-            (item) => `
-              <li>
-                <img src="${item.image || ""}" alt="${item.title || ""}" class="cart-item-image">
-                <div>
-                  <p>${item.title || ""}: ${item.quantity || ""}</p>
-                  <p>Price: $${(item.price || 0).toFixed(2)}</p>
-                </div>
-              </li>
-            `,
-          )
-          .join("")}
-      </ul>
+      <div class="order-summary">
+        <h3>Order summary:</h3>
+        <p>Total items: ${totals.totalItems}</p>
+        <p>Total price: $${totals.subtotal.toFixed(2)}</p>
+        ${totals.saved > 0 ? `<p class="you-saved">You saved $${totals.saved.toFixed(2)} 🎉</p>` : ""}
+        <ul>
+          ${items
+            .map(
+              (i) => `
+            <li>
+              <img src="${i.image || ""}" alt="${i.title || ""}" class="cart-item-image">
+              <div>
+                <p>${i.title}</p>
+                ${
+                  i.onSale
+                    ? `<p>Price:
+                  <span class="sale-price">$${i.unitPrice.toFixed(2)}</span>
+                  <span class="old-price" style="text-decoration:line-through;opacity:.7;">
+                    $${i.originalUnitPrice.toFixed(2)}
+                  </span>
+                  ${i.quantity > 1 ? ` ×${i.quantity}` : ""}
+                  </p>`
+                    : `<p>Price:
+                    <span class="sale-price">$${i.unitPrice.toFixed(2)}</span>
+                    ${i.quantity > 1 ? ` ×${i.quantity}` : ""}
+                  </p>`
+                }
+                ${i.quantity > 1 ? `<p>Subtotal: <span class="sale-price">$${(i.unitPrice * i.quantity).toFixed(2)}</span></p>` : ""}
+              </div>
+            </li>`,
+            )
+            .join("")}
+          </ul>
+      </div>
     `;
 
     const continueShoppingBtn = document.createElement("button");
     continueShoppingBtn.addEventListener("click", () => {
       localStorage.removeItem("cart");
+      localStorage.removeItem("orderSummary");
+      sessionStorage.removeItem("productCart");
       window.location.href = "index.html";
     });
     continueShoppingBtn.innerText = "Continue shopping";

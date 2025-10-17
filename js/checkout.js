@@ -122,6 +122,30 @@ function displayCartSummary() {
   );
 
   const saved = Math.max(0, totals.original - totals.actual);
+
+  const summary = {
+    items: items.map((it) => {
+      const unit = Number(it.onSale ? it.discountedPrice : it.price) || 0;
+      return {
+        id: it.id,
+        title: it.title,
+        image: it.image,
+        quantity: it.quantity,
+        unitPrice: unit,
+        originalUnitPrice: Number(it.price) || 0,
+        onSale: !!it.onSale,
+        lineTotal: unit * it.quantity,
+      };
+    }),
+    totals: {
+      totalItems,
+      subtotal: totals.actual,
+      original: totals.original,
+      saved,
+    },
+  };
+  localStorage.setItem("orderSummary", JSON.stringify(summary));
+
   checkoutDetails.innerHTML = `
     <h3>Summary</h3>
     <p>Total items: ${totalItems}</p>
