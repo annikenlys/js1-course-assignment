@@ -227,7 +227,7 @@ img {
 }
 
 .product-info button, .remove-from-cart-btn {
-    background-color: #1B203D;
+    background-color: #3FA535;
     color: #FFF;
     padding: 0.625rem 1.25rem;
     border: none;
@@ -271,13 +271,15 @@ main {
     text-align: center;
 }
 
-.product-info h3 {
+.product-info h1 {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
+    color: #fff;
 }
 
 .product-info p {
     margin: 0.5rem 0;
+    color: #fff;
 }
 
 .quantity {
